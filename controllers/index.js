@@ -1,4 +1,8 @@
-var http = require("http");
+var http = require("http"),
+    latlng = require("../libraries/latlng.js");
+
+var deflection = 0.001;
+
 var controller = {};
 controller.get = {
     index: function () {
@@ -39,7 +43,18 @@ controller.post = {
             } else {
                 console.log("saved location into db.");
                 //查找数据库
-                locations.findItems({"userId" : userId}, function(err, object) {
+                var condition = {
+                                "coords.latitude": {
+                                    $gt: (location.coords.latitude - deflection),
+                                    $lt: location.coords.latitude + deflection
+                                },
+                                "coords.longitude": {
+                                    $gt: location.coords.longitude - deflection,
+                                    $lt: location.coords.longitude + deflection
+                                }
+                            };
+                console.log(condition);
+                locations.findItems(condition, function(err, object) {
                     if (err) {
                         console.log(err.stack);
                     } else {
