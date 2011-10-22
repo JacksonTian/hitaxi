@@ -8,8 +8,8 @@ var framework = mvc.bootMVC();
 
 var server = http.createServer(function(request, response) {
     // Use framework to handle the request & response
+    request.db = db;
     framework.handle(request, response);
-
 });
 
 server.addListener("clientError", function (exception) {
