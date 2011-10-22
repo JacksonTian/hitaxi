@@ -1,14 +1,21 @@
-body {
-  font: 12px/1.4 "Helvetica Nueue", "Lucida Grande", Arial, sans-serif;
+*{
+    margin: 0;
+    padding: 0;
 }
-a {
-  color: #00aaff;
-  text-decoration: none;
+body{
+    overflow: hidden;
+    background-color: #ccc;
 }
-a:hover {
-  text-decoration: underline;
+#container{
+    height: auto;overflow: hidden;
 }
-#main {
-    width: 960px;
-    margin: 0 auto;
+#top{
+    margin: 10px;
+    margin-bottom: 10px;
+    margin-bottom: 0;
+    height: 100px;overflow: hidden;
+}
+.button{
+    width:100px;float: left;
+    height: 100px;
 }

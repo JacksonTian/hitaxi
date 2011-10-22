@@ -17,6 +17,13 @@ controller.get = {
         }
         console.log(userId);
         this.render("index");
+    },
+    test: function () {
+        var self = this;
+        var res = self.response;
+        var gets = self.request.get;
+        res.writeHeader(200, {'Content-Type':'text/plain'});
+        res.end(gets.M);
     }
 };
 controller.post = {
