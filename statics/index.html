@@ -3,21 +3,29 @@
     <head>
         <meta charset="utf-8"/>
         <title>hitaxi</title>
-        <link href="./style.css" type="text/css" rel="stylesheet" />
+        <link href="style.css" type="text/css" rel="stylesheet" />
         <script src="http://api.map.baidu.com/api?v=1.2"></script>
-        <script src="./util.js"></script>
+        <script src="util.js"></script>
         <script src="main.js"></script>
-        <script src="script.js"></script>
     </head>
        
     <body>
         <div id="container">
             <div id="top">
-                <input type="button" class="button" onclick="centerMe();" value="居中"  />
-                <input type="button" class="button" onclick="askAll()" value="查看所有"  />
-                <input type="button" class="button" onclick=""  />
+                <input type="button" class="button" onclick="watching();" id="watch_btn" title="我要看看"  />
+                <input type="button" class="button" onclick="changeType('customer')" id="free_btn" title="我要叫车" />
+                <input type="button" class="button" onclick="changeType('taxi')    " id="book_btn" title="我是空车" />
+                <input type="button" class="button" onclick="changeStatus('success') " id="success_btn" title="上车" />
+                <input type="button" class="button" onclick="changeStatus('watching')" id="cancel_btn" title="取消" />
+                <!--input type="button" class="button" onclick="centerMe();" value="居中"  /-->
             </div>
             <div id="map"></div>
+                <input type="button" onclick="moving(0,  0.001) " value="上" />
+                <input type="button" onclick="moving(0, -0.001) " value="下" />
+                <input type="button" onclick="moving(-0.001, 0) " value="左" />
+                <input type="button" onclick="moving( 0.001, 0) " value="右" />
+                <input type="text" id="id" size=5/><div>
+            </div>
         </div>
     </body>
     

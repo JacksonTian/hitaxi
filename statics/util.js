@@ -5,19 +5,19 @@
 
 //设置地图容器的宽度与高度
 function setContainerSize(){
-    var offset=10;//定义偏移量
+    var offset=0;//定义偏移量
     
     //获取当前屏幕的宽度与高度
     var x = window.innerWidth;
     var y = window.innerHeight;
-    var topHeight= document.getElementById("top").offsetHeight;
+    var topHeight= $("top").offsetHeight;
     //获取地图容器
-    var container = document.getElementById("map");
+    var container = $("map");
     
     container.style.top    = offset + "px";               
     container.style.left   = offset + "px";               
     container.style.width  = x-offset-offset + "px";               
-    container.style.height = y - topHeight-offset-offset +"px";
+    container.style.height = y - topHeight-offset-offset-30 +"px";
 }
 
 window.onload=function(){

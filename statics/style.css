@@ -10,12 +10,40 @@ body{
     height: auto;overflow: hidden;
 }
 #top{
-    margin: 10px;
-    margin-bottom: 10px;
+    margin: 0px;
+    margin-bottom: 0px;
     margin-bottom: 0;
-    height: 100px;overflow: hidden;
+    height: 100px;
+	line-height: 100px;
+	overflow: hidden;
+	background: url(assets/top_bg.png) repeat-x;
+}
+#id, #nm {
+	width: 200px;
+	height: 20px;
+	margin-left: 20px;
 }
 .button{
-    width:100px;float: left;
-    height: 100px;
+	border: 0;
+	cursor: pointer;
+    width:112px;
+	float: left;
+    height: 83px;
+	margin-top: 10px;
+	margin-left: 11px;
+}
+#watch_btn {
+	background: url(assets/watch_active_btn.png) no-repeat;
+}
+#book_btn {
+	background: url(assets/book_active_btn.png) no-repeat;
+}
+#free_btn {
+	background: url(assets/free_active_btn.png) no-repeat;
+}
+#success_btn {
+	background: url(assets/success_active_btn.png) no-repeat;
+}
+#cancel_btn {
+	background: url(assets/cancel_active_btn.png) no-repeat;
 }
