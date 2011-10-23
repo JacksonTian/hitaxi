@@ -95,7 +95,7 @@ controller.post = {
                     $lt: location.lng + deflection
                 },
                 "type": {
-                    $not: location.type
+                    $ne: location.type
                 }
             };
         console.log(condition);
