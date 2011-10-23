@@ -52,12 +52,12 @@ controller.post = {
                 //查找数据库
                 var condition = {
                                 "coords.latitude": {
-                                    $gt: (location.coords.latitude - deflection),
-                                    $lt: location.coords.latitude + deflection
+                                    $gt: (location.lat - deflection),
+                                    $lt: location.lat + deflection
                                 },
                                 "coords.longitude": {
-                                    $gt: location.coords.longitude - deflection,
-                                    $lt: location.coords.longitude + deflection
+                                    $gt: location.lng - deflection,
+                                    $lt: location.lng + deflection
                                 }
                             };
                 console.log(condition);
