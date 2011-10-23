@@ -103,11 +103,14 @@ controller.post = {
             } else {
                 if (object) {
                     // 保存匹配到的两个用户到bookedUsers集合中，并从locations集合中移除掉
+                    var token = Math.random().toString(32).substring(2);
                     object.matched = location.userId;
+                    object.token = token;
                     bookedUsers.save(object);
                     location.matched = object.userId;
+                    location.token = token;
                     bookedUsers.save(location);
-                    
+
                     //存储当前用户的信息到db中，以供被匹配
                     locations.remove({"userId": { $in: [location.userId, object.userId]}});
                 }
@@ -153,7 +156,7 @@ controller.post = {
                 console.log("update location into booked db.");
                 //查找数据库
                 //查询条件
-                var condition = {"userId": object.matched};
+                var condition = {"userId": object.matched, "token": object.token};
                 console.log(condition);
                 bookedUsers.findOne(condition, function(err, object) {
                     console.log("find items");
