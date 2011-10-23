@@ -149,5 +149,26 @@ controller.post = {
                 });
             }
         });
+    },
+    success: function () {
+        var that = this,
+            res = that.response,
+            req = that.request;
+        //生成collection对象
+        var bookedUsers = req.db.collection("booked");
+        var location = JSON.parse(req.post);
+        location.success = true;
+        //存储当前用户的信息到db中，以供被匹配
+        bookedUsers.findAndModify({"userId": location.userId}, [], {$set: location}, {upsert: true, "new": true}, function (err, object) {
+            console.log(arguments);
+            if (err) {
+                console.log(err.stack);
+                res.end(err.stack);
+            } else {
+                console.log("final success.");
+                res.writeHeader(200, {'Content-Type':'application/json', "Access-Control-Allow-Origin": "http://localhost"});
+                res.end();
+            }
+        });
     }
 };
