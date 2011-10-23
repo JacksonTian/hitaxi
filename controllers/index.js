@@ -54,11 +54,11 @@ controller.post = {
                 console.log("saved location into db.");
                 //查找数据库
                 var condition = {
-                                "coords.latitude": {
+                                "lat": {
                                     $gt: (location.lat - deflection),
                                     $lt: location.lat + deflection
                                 },
-                                "coords.longitude": {
+                                "lng": {
                                     $gt: location.lng - deflection,
                                     $lt: location.lng + deflection
                                 }
