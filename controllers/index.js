@@ -153,9 +153,9 @@ controller.post = {
                 console.log("update location into booked db.");
                 //查找数据库
                 //查询条件
-                var condition = {"userId": { $in: [object.userId, object.matched]}};
+                var condition = {"userId": object.matched};
                 console.log(condition);
-                bookedUsers.findItems(condition, function(err, object) {
+                bookedUsers.findOne(condition, function(err, object) {
                     console.log("find items");
                     console.log(arguments);
                     if (err) {
