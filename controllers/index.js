@@ -124,7 +124,7 @@ controller.post = {
         var bookedUsers = req.db.collection("booked");
         var location = JSON.parse(req.post);
         //存储当前用户的信息到db中，以供被匹配
-        bookedUsers.findAndModify({"userId": location.userId}, [], location, {upsert: true, "new": true}, function (err, object) {
+        bookedUsers.findAndModify({"userId": location.userId}, [], {$set: location}, {upsert: true, "new": true}, function (err, object) {
             console.log(arguments);
             if (err) {
                 console.log(err.stack);
