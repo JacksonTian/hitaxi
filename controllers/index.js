@@ -117,26 +117,33 @@ controller.post = {
         });
     },
     booked: function () {
+        var that = this,
+            res = that.response,
+            req = that.request;
         //生成collection对象
         var bookedUsers = req.db.collection("booked");
         var location = JSON.parse(req.post);
         //存储当前用户的信息到db中，以供被匹配
-        bookedUsers.findAndModify({"userId": location.userId}, [['_id','asc']], location, {upsert: true}, function (err, object) {
+        bookedUsers.findAndModify({"userId": location.userId}, [], location, {upsert: true, "new": true}, function (err, object) {
+            console.log(arguments);
             if (err) {
                 console.log(err.stack);
                 res.end(err.stack);
             } else {
-                console.log("update location into db.");
+                console.log("update location into booked db.");
                 //查找数据库
                 //查询条件
                 var condition = {"userId": { $in: [object.userId, object.matched]}};
+                console.log(condition);
                 bookedUsers.findItems(condition, function(err, object) {
+                    console.log("find items");
+                    console.log(arguments);
                     if (err) {
                         console.log(err.stack);
                         res.writeHeader(500, {'Content-Type':'text/plain', "Access-Control-Allow-Origin": "http://localhost"});
                         res.end(err.stack);
                     } else {
-                        res.writeHeader(200, {'Content-Type':'application/json', "Access-Control-Allow-Origin": "*"});
+                        res.writeHeader(200, {'Content-Type':'application/json', "Access-Control-Allow-Origin": "http://localhost"});
                         res.end(JSON.stringify(object));
                     }
                 });
