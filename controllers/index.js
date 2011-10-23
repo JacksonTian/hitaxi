@@ -1,8 +1,6 @@
 var http = require("http"),
     latlng = require("../libraries/latlng.js");
-
 var deflection = 0.01;
-
 var controller = exports.controller = {};
 controller.get = {
     index: function () {
@@ -24,9 +22,8 @@ controller.post = {
     // 提交用户的地理位置，帮用户返回周围的等车的人和未载人的车
     watching: function () {
         var that = this,
-            res = that.response;
+            res = that.response,
             req = that.request;
-
         //生成collection对象
         var locations = req.db.collection("locations");
         var location = JSON.parse(req.post);
@@ -46,7 +43,6 @@ controller.post = {
                     $lt: location.lng + deflection
                 }
             };
-
         locations.findItems(condition, function (err, object) {
             if (err) {
                 console.log(err.stack);
@@ -61,9 +57,8 @@ controller.post = {
     // 用户进入matching状态，会提交最新的地理位置
     matching: function () {
         var that = this,
-            res = that.response;
+            res = that.response,
             req = that.request;
-
         //生成collection对象
         var locations = req.db.collection("locations");
         var bookedUsers = req.db.collection("booked");
@@ -83,7 +78,6 @@ controller.post = {
                 console.log("saved location into db.");
             }
         });
-
         //查询条件
         var condition = {
                 "lat": {
@@ -99,15 +93,15 @@ controller.post = {
                 }
             };
         console.log(condition);
-
         //查找数据库
         locations.findOne(condition, function(err, object) {
+            console.log(arguments);
             if (err) {
                 console.log(err.stack);
                 res.writeHeader(500, {'Content-Type':'text/plain', "Access-Control-Allow-Origin": "*"});
                 res.end(err.stack);
             } else {
-                if (object.length) {
+                if (object) {
                     // 保存匹配到的两个用户到bookedUsers集合中，并从locations集合中移除掉
                     object.matched = location.userId;
                     bookedUsers.save(object);
@@ -150,4 +144,3 @@ controller.post = {
         });
     }
 };
-
