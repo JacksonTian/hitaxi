@@ -41,7 +41,10 @@ controller.post = {
         console.log("locations");
 
         var location = JSON.parse(req.post);
-        location.userId = userId;
+        if (!location.userId) {
+            location.userId = userId;
+        }
+
         //mongoDB存数据
         locations.findAndModify({"userId": userId}, [['_id','asc']], location, {upsert: true}, function (err) {
             if (err) {
