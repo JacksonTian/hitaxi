@@ -1,5 +1,4 @@
-var http = require("http"),
-    latlng = require("../libraries/latlng.js");
+var latlng = require("../libraries/latlng.js");
 var deflection = 0.01;
 var controller = exports.controller = {};
 controller.get = {
@@ -111,8 +110,28 @@ controller.post = {
                     //存储当前用户的信息到db中，以供被匹配
                     locations.remove({"userId": { $in: [location.userId, object.userId]}});
                 }
-                res.writeHeader(200, {'Content-Type':'application/json', "Access-Control-Allow-Origin": "http://localhost"});
-                res.end(JSON.stringify(object));
+                //查询条件
+                var condition = {
+                        "lat": {
+                            $gt: (location.lat - deflection),
+                            $lt: location.lat + deflection
+                        },
+                        "lng": {
+                            $gt: location.lng - deflection,
+                            $lt: location.lng + deflection
+                        }
+                    };
+                locations.findItems(condition, function (err, items) {
+                    if (err) {
+                        console.log(err.stack);
+                        res.writeHeader(500, {'Content-Type':'text/plain', "Access-Control-Allow-Origin": "http://localhost"});
+                        res.end(err.stack);
+                    } else {
+                        res.writeHeader(200, {'Content-Type':'application/json', "Access-Control-Allow-Origin": "http://localhost"});
+                        var result = {collection: items, matched: object};
+                        res.end(JSON.stringify(result));
+                    }
+                });
             }
         });
     },
