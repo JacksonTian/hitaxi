@@ -1,5 +1,6 @@
 var latlng = require("../libraries/latlng.js");
-var deflection = 0.01;
+var watchDeflection = 0.05;
+var matchDeflection = 0.002;
 var controller = exports.controller = {};
 controller.get = {
     index: function () {
@@ -34,12 +35,12 @@ controller.post = {
         //查询条件
         var condition = {
                 "lat": {
-                    $gt: (location.lat - deflection),
-                    $lt: location.lat + deflection
+                    $gt: (location.lat - watchDeflection),
+                    $lt: location.lat + watchDeflection
                 },
                 "lng": {
-                    $gt: location.lng - deflection,
-                    $lt: location.lng + deflection
+                    $gt: location.lng - watchDeflection,
+                    $lt: location.lng + watchDeflection
                 }
             };
         locations.findItems(condition, function (err, object) {
@@ -80,12 +81,12 @@ controller.post = {
         //查询条件
         var condition = {
                 "lat": {
-                    $gt: (location.lat - deflection),
-                    $lt: location.lat + deflection
+                    $gt: (location.lat - matchDeflection),
+                    $lt: location.lat + matchDeflection
                 },
                 "lng": {
-                    $gt: location.lng - deflection,
-                    $lt: location.lng + deflection
+                    $gt: location.lng - matchDeflection,
+                    $lt: location.lng + matchDeflection
                 },
                 "type": {
                     $ne: location.type
@@ -111,17 +112,17 @@ controller.post = {
                     locations.remove({"userId": { $in: [location.userId, object.userId]}});
                 }
                 //查询条件
-                var condition = {
+                var watchCondition = {
                         "lat": {
-                            $gt: (location.lat - deflection),
-                            $lt: location.lat + deflection
+                            $gt: (location.lat - watchDeflection),
+                            $lt: location.lat + watchDeflection
                         },
                         "lng": {
-                            $gt: location.lng - deflection,
-                            $lt: location.lng + deflection
+                            $gt: location.lng - watchDeflection,
+                            $lt: location.lng + watchDeflection
                         }
                     };
-                locations.findItems(condition, function (err, items) {
+                locations.findItems(watchCondition, function (err, items) {
                     if (err) {
                         console.log(err.stack);
                         res.writeHeader(500, {'Content-Type':'text/plain', "Access-Control-Allow-Origin": "http://localhost"});
