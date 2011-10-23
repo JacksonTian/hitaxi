@@ -46,7 +46,7 @@ controller.post = {
         }
 
         //mongoDB存数据
-        locations.findAndModify({"userId": userId}, [['_id','asc']], location, {upsert: true}, function (err) {
+        locations.findAndModify({"userId": location.userId}, [['_id','asc']], location, {upsert: true}, function (err) {
             if (err) {
                 console.log(err.stack);
                 res.end(err.toString());
