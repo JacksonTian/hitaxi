@@ -65,8 +65,7 @@ controller.post = {
                     if (err) {
                         console.log(err.stack);
                     } else {
-                        res.writeHeader(200, {'Content-Type':'text/plain'});
-                        res.writeHeader("Access-Control-Allow-Origin", "*");
+                        res.writeHeader(200, {'Content-Type':'text/plain', "Access-Control-Allow-Origin": "*"});
                         res.end(JSON.stringify(object));
                     }
                 });
