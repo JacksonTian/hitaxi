@@ -50,10 +50,10 @@ controller.post = {
         locations.findItems(condition, function (err, object) {
             if (err) {
                 console.log(err.stack);
-                res.writeHeader(500, {'Content-Type':'text/plain', "Access-Control-Allow-Origin": "*"});
+                res.writeHeader(500, {'Content-Type':'text/plain', "Access-Control-Allow-Origin": "http://localhost"});
                 res.end(err.stack);
             } else {
-                res.writeHeader(200, {'Content-Type':'application/json', "Access-Control-Allow-Origin": "*"});
+                res.writeHeader(200, {'Content-Type':'application/json', "Access-Control-Allow-Origin": "http://localhost"});
                 res.end(JSON.stringify(object));
             }
         });
@@ -117,7 +117,7 @@ controller.post = {
                     //存储当前用户的信息到db中，以供被匹配
                     locations.remove({"userId": { $in: [location.userId, object.userId]}});
                 }
-                res.writeHeader(200, {'Content-Type':'application/json', "Access-Control-Allow-Origin": "*"});
+                res.writeHeader(200, {'Content-Type':'application/json', "Access-Control-Allow-Origin": "http://localhost"});
                 res.end(JSON.stringify(object));
             }
         });
@@ -139,7 +139,7 @@ controller.post = {
                 bookedUsers.findItems(condition, function(err, object) {
                     if (err) {
                         console.log(err.stack);
-                        res.writeHeader(500, {'Content-Type':'text/plain', "Access-Control-Allow-Origin": "*"});
+                        res.writeHeader(500, {'Content-Type':'text/plain', "Access-Control-Allow-Origin": "http://localhost"});
                         res.end(err.stack);
                     } else {
                         res.writeHeader(200, {'Content-Type':'application/json', "Access-Control-Allow-Origin": "*"});
